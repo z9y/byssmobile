@@ -9,20 +9,49 @@ protocol PrintCheckListElementsProtocol {
     func printAllCheckListElements()
 }
 
+enum WeekDay: CustomStringConvertible {
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+    case sunday
+    
+    var description: String {
+        switch self {
+        case .monday:
+            return "Poniedziałek"
+        case .tuesday:
+            return "Wtorek"
+        case .wednesday:
+            return "Środa"
+        case .thursday:
+            return "Czwartek"
+        case .friday:
+            return "Piątek"
+        case .saturday:
+            return "Sobota"
+        case .sunday:
+            return "Niedziela"
+        }
+    }
+}
+
 class CheckListElement: CustomStringConvertible, CanBeDone {
     
     var printCheckListElementsProtocol: PrintCheckListElementsProtocol!
-    var date: String
+    var date: WeekDay
     var task: String
     var done: Bool
     
     init() {
-        date = "Poniedziałek"
+        date = .monday
         task = "Zrobić pranie"
         done = false
     }
     
-    init(date: String, task: String, done: Bool) {
+    init(date: WeekDay, task: String, done: Bool) {
         self.date = date
         self.task = task
         self.done = done
@@ -55,7 +84,7 @@ class CheckList: PrintCheckListElementsProtocol {
     }
 }
 
-var testOne = [CheckListElement(date: "Środa", task: "Wyrzucić śmieci", done: true), CheckListElement()]
+var testOne = [CheckListElement(date: .wednesday, task: "Wyrzucić śmieci", done: true), CheckListElement()]
 var list = CheckList(checkListElements: testOne)
 
 testOne[0].setDone(val: false)
